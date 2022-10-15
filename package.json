@@ -11,5 +11,9 @@
   },
   "devDependencies": {
     "@zeit/ncc": "^0.21.1"
+  },
+  "scripts":{
+    "build": "ncc build src/index.js -o dist",
+    "test": "echo test && exit 1"
   }
 }
