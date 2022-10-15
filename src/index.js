@@ -129,17 +129,17 @@ const main = async () => {
     params['ecsConnection'] = ecsConnection;
 
     const actualRetries = await retry(params);
-    // if (actualRetries > params.retries) {
-    //   if (params.verbose) {
-    //     console.error(`Service is not stable after ${params.retries} retries!`);
-    //   }
-    //   core.setFailed(`Service is not stable after ${params.retries} retries!`);
-    // } else {
-    //   if (params.verbose) {
-    //     console.log(`Service is stable after ${actualRetries} retries!`);
-    //   }
-    //   core.setOutput('retries', actualRetries.toString());
-    // }
+    if (actualRetries > params.retries) {
+      if (params.verbose) {
+        console.error(`Service is not stable after ${params.retries} retries!`);
+      }
+      core.setFailed(`Service is not stable after ${params.retries} retries!`);
+    } else {
+      if (params.verbose) {
+        console.log(`Service is stable after ${actualRetries} retries!`);
+      }
+      core.setOutput('retries', actualRetries.toString());
+    }
   } catch (error) {
     core.setFailed(error.message);
   }
