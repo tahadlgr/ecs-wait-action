@@ -2,6 +2,9 @@ const core = require('@actions/core');
 const AWS = require('aws-sdk');
 const clientSTS = require('@aws-sdk/client-sts')
 
+let stsClient = new clientSTS.STSClient({region: 'us-east-1'});
+
+
 /**
  * Waits for given AWS ECS services transition into "servicesStable" state.
  * Times out after 10 minutes.
