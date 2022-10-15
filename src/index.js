@@ -50,11 +50,12 @@ const retry = async ({ retries, verbose, ...params }) => {
  * @param   {string}  params.region          - The AWS_REGION
  * @returns {AWS.ECS}                          An AWS ECS connection object
  */
-const createEcsConnection = ({ accessKeyId, secretAccessKey, region }) =>
+const createEcsConnection = ({ accessKeyId, secretAccessKey, sessionToken, region }) =>
   new AWS.ECS({
     apiVersion: '2014-11-13',
     accessKeyId,
     secretAccessKey,
+    sessionToken,
     region,
   });
 
@@ -70,6 +71,7 @@ const extractParams = () => {
       core.getInput('aws-secret-access-key') ||
       process.env.AWS_SECRET_ACCESS_KEY,
     region: core.getInput('aws-region') || process.env.AWS_REGION,
+    sessionTeoken: core.getInput('aws-session-token') || process.env.AWS_SESSION_TOKEN,
     retries: parseInt(core.getInput('retries'), 10),
     cluster: core.getInput('ecs-cluster'),
     services: JSON.parse(core.getInput('ecs-services')),
