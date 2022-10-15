@@ -7,12 +7,13 @@
   "dependencies": {
     "@actions/core": "^1.2.3",
     "@actions/github": "^2.1.1",
+    "@vercel/ncc": "^0.34.0",
     "aws-sdk": "^2.632.0"
   },
   "devDependencies": {
     "@zeit/ncc": "^0.21.1"
   },
-  "scripts":{
+  "scripts": {
     "build": "ncc build src/index.js -o dist",
     "test": "echo test && exit 1"
   }
