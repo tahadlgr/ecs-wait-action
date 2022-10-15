@@ -66,7 +66,7 @@ const createEcsConnection = (credentials) =>
 
   async function assumeRoleInAccount() {
     const command = new clientSTS.AssumeRoleCommand({
-        RoleArn: `arn:aws:iam::076699035263:role/test-github-ecs`,
+        RoleArn: `arn:aws:iam::076699035263:role/test-ecs-role`,
         RoleSessionName: `test-gh-ecs`
     });
 
