@@ -50,14 +50,33 @@ const retry = async ({ retries, verbose, ...params }) => {
  * @param   {string}  params.region          - The AWS_REGION
  * @returns {AWS.ECS}                          An AWS ECS connection object
  */
-const createEcsConnection = ({ accessKeyId, secretAccessKey, sessionToken, region }) =>
+const createEcsConnection = (credentials) =>
   new AWS.ECS({
     apiVersion: '2014-11-13',
-    accessKeyId,
-    secretAccessKey,
-    sessionToken,
-    region,
+    accessKeyId: credentials.accessKeyId,
+    secretAccessKey: credentials.secretAccessKey,
+    sessionToken: credentials.sessionToken,
+    region: credentials.region
   });
+
+
+  async function assumeRoleInAccount() {
+    const command = new clientSTS.AssumeRoleCommand({
+        RoleArn: `arn:aws:iam::076699035263:role/test-github-ecs`,
+        RoleSessionName: `test-gh-ecs`
+    });
+
+    const assumedRole = await stsClient.send(command)
+    return {
+        accessKeyId: assumedRole.Credentials.AccessKeyId,
+        secretAccessKey: assumedRole.Credentials.SecretAccessKey,
+        sessionToken: assumedRole.Credentials.SessionToken,
+        region: 'us-east-1'
+    }
+}
+
+
+
 
 /**
  * Extracts step params from environment and context
@@ -95,11 +114,14 @@ const main = async () => {
   try {
     const params = extractParams();
 
+    const credentials = await assumeRoleInAccount();
+
+
     if (!params) {
       return;
     }
 
-    const ecsConnection = createEcsConnection(params);
+    const ecsConnection = createEcsConnection(credentials);
     params['ecsConnection'] = ecsConnection;
 
     const actualRetries = await retry(params);
