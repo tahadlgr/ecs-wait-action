@@ -1,5 +1,6 @@
 const core = require('@actions/core');
 const AWS = require('aws-sdk');
+const clientSTS = require('@aws-sdk/client-sts')
 
 /**
  * Waits for given AWS ECS services transition into "servicesStable" state.
