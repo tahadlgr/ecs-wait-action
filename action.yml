@@ -11,14 +11,8 @@ inputs:
   retries:
     description: 'How many times to retry the 10 minute wait (integer)'
     default: 2
-  aws-access-key-id:
-    description: 'The AWS_ACCESS_KEY_ID (string)'
-  aws-secret-access-key:
-    description: 'The AWS_SECRET_ACCESS_KEY (string)'
   aws-region:
     description: 'The AWS_REGION (string)'
-  aws-session-token:
-    description: 'AWS Session Token'
   verbose:
     description: 'Whether to print the retry log (bool)'
     default: false
