@@ -2,7 +2,7 @@ const core = require('@actions/core');
 const AWS = require('aws-sdk');
 const clientSTS = require('@aws-sdk/client-sts')
 
-let stsClient = new clientSTS.STSClient({region: 'us-east-1'});
+let stsClient = new clientSTS.STSClient({region: core.getInput('aws-region')});
 
 
 /**
@@ -66,7 +66,7 @@ const createEcsConnection = (credentials) =>
 
 async function assumeRoleInAccount() {
   const command = new clientSTS.AssumeRoleCommand({
-      RoleArn:  core.getInput('aws-iam-assume-role'),
+      RoleArn:  core.getInput('role-to-assume'),
       RoleSessionName: `ecs-wait-action`
   });
 

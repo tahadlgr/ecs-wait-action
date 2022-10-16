@@ -1,5 +1,5 @@
 name: 'ECS Wait'
-author: 'Oryan Moshe'
+author: 'Sudheer Akula'
 description: 'Waits for ECS service stability'
 inputs:
   ecs-cluster:
@@ -16,14 +16,14 @@ inputs:
   verbose:
     description: 'Whether to print the retry log (bool)'
     default: false
-  aws-iam-assume-role:
+  role-to-assume:
     description: role which has permission to interact with the account
     required: true
 outputs:
   retries:
     description: 'How many retries happened until success (integer)'
 runs:
-  using: 'node12'
+  using: 'node14'
   main: 'dist/index.js'
 branding:
   icon: 'clock'
