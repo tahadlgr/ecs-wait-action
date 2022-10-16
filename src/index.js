@@ -92,7 +92,7 @@ const extractParams = () => {
     cluster: core.getInput('ecs-cluster'),
     services: JSON.parse(core.getInput('ecs-services')),
     verbose: core.getInput('verbose') === 'true',
-    assumeRole: core.getInput('aws-iam-access-role'),
+    assumeRole: core.getInput('aws-iam-assume-role'),
   };
 
   if (!params.assumeRole || !params.region) {
