@@ -66,7 +66,8 @@ const createEcsConnection = (credentials) =>
 
 async function assumeRoleInAccount() {
   const command = new clientSTS.AssumeRoleCommand({
-      RoleArn:  core.getInput('aws-iam-assume-role')
+      RoleArn:  core.getInput('aws-iam-assume-role'),
+      RoleSessionName: ecs-wait-action
   });
 
   const assumedRole = await stsClient.send(command)
