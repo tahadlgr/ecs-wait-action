@@ -23,7 +23,7 @@ outputs:
   retries:
     description: 'How many retries happened until success (integer)'
 runs:
-  using: 'node14'
+  using: 'node16'
   main: 'dist/index.js'
 branding:
   icon: 'clock'
