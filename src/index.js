@@ -64,19 +64,18 @@ const createEcsConnection = (credentials) =>
   });
 
 
-  async function assumeRoleInAccount() {
-    const command = new clientSTS.AssumeRoleCommand({
-        RoleArn:  core.getInput('aws-iam-assume-role'),
-        RoleSessionName: `test-gh-ecs`
-    });
+async function assumeRoleInAccount() {
+  const command = new clientSTS.AssumeRoleCommand({
+      RoleArn:  core.getInput('aws-iam-assume-role')
+  });
 
-    const assumedRole = await stsClient.send(command)
-    return {
-        accessKeyId: assumedRole.Credentials.AccessKeyId,
-        secretAccessKey: assumedRole.Credentials.SecretAccessKey,
-        sessionToken: assumedRole.Credentials.SessionToken,
-        region: 'us-east-1'
-    }
+  const assumedRole = await stsClient.send(command)
+  return {
+      accessKeyId: assumedRole.Credentials.AccessKeyId,
+      secretAccessKey: assumedRole.Credentials.SecretAccessKey,
+      sessionToken: assumedRole.Credentials.SessionToken,
+      region: 'us-east-1'
+  }
 }
 
 
@@ -88,20 +87,15 @@ const createEcsConnection = (credentials) =>
  */
 const extractParams = () => {
   const params = {
-    accessKeyId:
-      core.getInput('aws-access-key-id') || process.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey:
-      core.getInput('aws-secret-access-key') ||
-      process.env.AWS_SECRET_ACCESS_KEY,
     region: core.getInput('aws-region') || process.env.AWS_REGION,
-    sessionTeoken: core.getInput('aws-session-token') || process.env.AWS_SESSION_TOKEN,
     retries: parseInt(core.getInput('retries'), 10),
     cluster: core.getInput('ecs-cluster'),
     services: JSON.parse(core.getInput('ecs-services')),
     verbose: core.getInput('verbose') === 'true',
+    assumeRole: core.getInput('aws-iam-access-role'),
   };
 
-  if (!params.accessKeyId || !params.secretAccessKey || !params.region) {
+  if (!params.assumeRole || !params.region) {
     core.setFailed(
       'AWS credentials were not found in inputs or environment variables.'
     );
