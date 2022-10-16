@@ -22,6 +22,9 @@ inputs:
   verbose:
     description: 'Whether to print the retry log (bool)'
     default: false
+  aws-iam-assume-role:
+    description: role which has permission to interact with the account
+    required: true
 outputs:
   retries:
     description: 'How many retries happened until success (integer)'
