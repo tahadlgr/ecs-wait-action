@@ -35,8 +35,9 @@ const retry = async ({ retries, verbose, ...params }) => {
       }
       await waitForStability(params);
       isStable = true;
-    } catch {
+    } catch(err) {
       if (verbose) {
+        console.error(`Error log: ${err.message}`);
         console.warn(`Try #${currTry} failed!`);
       }
       ++currTry;
