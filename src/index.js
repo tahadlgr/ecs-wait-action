@@ -41,7 +41,7 @@ const retry = async ({ retries, verbose, ...params }) => {
         alert( err.mesage );
         alert( err.stack );
         console.warn(`Error log: ${err.message}`);
-        console.warn(`Try #${currTry} failed!`);
+        console.warn(`Try task #${currTry} failed!`);
       }
       ++currTry;
     }
