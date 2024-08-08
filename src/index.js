@@ -76,7 +76,7 @@ async function assumeRoleInAccount() {
       accessKeyId: assumedRole.Credentials.AccessKeyId,
       secretAccessKey: assumedRole.Credentials.SecretAccessKey,
       sessionToken: assumedRole.Credentials.SessionToken,
-      region: 'us-east-1'
+      region: 'eu-central-1'
   }
 }
 
