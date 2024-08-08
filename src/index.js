@@ -38,10 +38,7 @@ const retry = async ({ retries, verbose, ...params }) => {
     }
     catch(err) {
       if (verbose) {
-        alert( err.mesage );
-        alert( err.stack );
-        console.warn(`Error log: ${err.message}`);
-        console.warn(`Try task #${currTry} failed!`);
+        console.warn(`Try task #${currTry} failed! ${err.message}`);
       }
       ++currTry;
     }
