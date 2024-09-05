@@ -38,7 +38,7 @@ const retry = async ({ retries, verbose, ...params }) => {
     }
     catch(err) {
       if (verbose) {
-        console.warn(`Try task #${currTry} failed! ${err.message}`);
+        console.warn(`Try task #${currTry} failed! Error information: ${JSON.stringify(err.originalError)}`);
       }
       ++currTry;
     }
@@ -76,7 +76,7 @@ async function assumeRoleInAccount() {
       accessKeyId: assumedRole.Credentials.AccessKeyId,
       secretAccessKey: assumedRole.Credentials.SecretAccessKey,
       sessionToken: assumedRole.Credentials.SessionToken,
-      region: 'us-east-1'
+      region: 'eu-central-1'
   }
 }
 
